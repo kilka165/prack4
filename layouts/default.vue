@@ -1,3 +1,13 @@
+<script setup lang="ts">
+import {useAuthStore} from "~/stores/auth";
+
+const authStore = useAuthStore();
+const router = useRouter();
+const logout = async () => {
+  await authStore.signout();
+}
+</script>
+
 <template>
   <nav class="navbar navbar-expand-lg bg-body-tertiary">
     <div class="container-fluid">
@@ -28,8 +38,14 @@
             <a class="nav-link disabled" aria-disabled="true">Disabled</a>
           </li>
         </ul>
-        <button class="btn btn-outline-success me-2" type="submit">signUp</button>
-        <button type="button" class="btn btn-outline-info">SignIn</button>
+        <template v-if="!authStore.authData">
+        <button @click="$router.push('/signup')" class="btn btn-outline-success me-2" type="submit" >signUp</button>
+        <button @click="$router.push('/signin')" type="button" class="btn btn-outline-info">SignIn</button>
+        </template>
+        <template v-else>
+          <nuxt-link to="/" class="navbar-link">Profile</nuxt-link>
+          <button @click="logout" type="button" class="btn btn-outline-danger ms-2">SignButton</button>
+        </template>
       </div>
     </div>
   </nav>
@@ -37,6 +53,3 @@
     <slot />
   </div>
 </template>
-<script setup lang="ts">
-
-</script>
