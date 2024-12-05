@@ -83,7 +83,7 @@ const goto = (page: number) => {
             </template>
           </p>
         </div>
-        <button type="button" class="btn btn-success">Add</button>
+        <button @click="$router.push(`/film/{id}`)" type="button" class="btn btn-success">watch</button>
       </div>
     </div>
   </div>
